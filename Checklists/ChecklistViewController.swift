@@ -14,47 +14,40 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     
     required init?(coder aDecoder: NSCoder) {
         items = [ChecklistItem]()
-        
-        let row0Item = ChecklistItem()
-        row0Item.text = "Walk the dog"
-        row0Item.checked = false
-        items.append(row0Item)
-        
-        let row1Item = ChecklistItem()
-        row1Item.text = "Brush my teeth"
-        row1Item.checked = false
-        items.append(row1Item)
-        
-        let row2Item = ChecklistItem()
-        row2Item.text = "Learn iOS development"
-        row2Item.checked = false
-        items.append(row2Item)
-        
-        let row3Item = ChecklistItem()
-        row3Item.text = "Soccer practice"
-        row3Item.checked = false
-        items.append(row3Item)
-        
-        let row4Item = ChecklistItem()
-        row4Item.text = "Eat ice cream"
-        row4Item.checked = false
-        items.append(row4Item)
-        
-        let row5Item = ChecklistItem()
-        row5Item.text = "Go jump on a pogo stick"
-        row5Item.checked = false
-        items.append(row5Item)
-        
-        let row6Item = ChecklistItem()
-        row6Item.text = "Hug a bunny"
-        row6Item.checked = false
-        items.append(row6Item)
-        
         super.init(coder: aDecoder)
+        loadChecklistItems()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    func loadChecklistItems() {
+        let path = dataFilePath()
+        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            if let data = NSData(contentsOfFile: path) {
+                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+                items = unarchiver.decodeObjectForKey("ChecklistItems") as! [ChecklistItem]
+                unarchiver.finishDecoding()
+            }
+        }
+    }
+    
+    func saveChecklistItems() {
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+        archiver.encodeObject(items, forKey: "ChecklistItems")
+        archiver.finishEncoding()
+        data.writeToFile(dataFilePath(), atomically: true)
+    }
+    
+    func documentsDirectory() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        return paths[0]
+    }
+    
+    func dataFilePath() -> String {
+        return (documentsDirectory() as NSString).stringByAppendingPathComponent("Checklists.plist")
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,6 +80,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
             }
         }
         dismissViewControllerAnimated(true, completion: nil)
+        saveChecklistItems()
     }
     
     func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem) {
@@ -98,6 +92,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
         
         dismissViewControllerAnimated(true, completion: nil)
+        saveChecklistItems()
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -114,6 +109,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
             let item = items[indexPath.row]
             item.toggleChecked()
             configureCheckmarkForCell(cell, withChecklistItem: item)
+            saveChecklistItems()
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
@@ -122,6 +118,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         items.removeAtIndex(indexPath.row)
         let indexPaths = [indexPath]
         tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        saveChecklistItems()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
