@@ -9,8 +9,14 @@
 import Foundation
 
 class ChecklistItem: NSObject, NSCoding {
-    var text = ""
-    var checked = false
+    var text: String
+    var checked: Bool
+    
+    init(text: String, checked: Bool) {
+        self.text = text
+        self.checked = checked
+        super.init()
+    }
     
     func toggleChecked() {
         checked = !checked
@@ -27,7 +33,4 @@ class ChecklistItem: NSObject, NSCoding {
         super.init()
     }
     
-    override init() {
-        super.init()
-    }
 }
