@@ -233,8 +233,8 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Na8-ar-iAc">
                                                     <rect key="frame" x="536" y="6" width="51" height="31"/>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remind Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLL-3Y-prb">
-                                                    <rect key="frame" x="15" y="11" width="86" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLL-3Y-prb">
+                                                    <rect key="frame" x="18" y="12" width="82" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -242,11 +242,13 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Na8-ar-iAc" firstAttribute="top" secondItem="2ro-f0-rBI" secondAttribute="top" constant="6" id="GoF-i8-pvE"/>
+                                                <constraint firstItem="VLL-3Y-prb" firstAttribute="leading" secondItem="2ro-f0-rBI" secondAttribute="leading" constant="18" id="N5B-JS-b2J"/>
+                                                <constraint firstItem="VLL-3Y-prb" firstAttribute="top" secondItem="2ro-f0-rBI" secondAttribute="top" constant="12" id="evC-AN-at6"/>
                                                 <constraint firstAttribute="trailing" secondItem="Na8-ar-iAc" secondAttribute="trailing" constant="15" id="oIt-PM-tJs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Sh0-f6-WgO" detailTextLabel="cTN-sW-Bl6" style="IBUITableViewCellStyleValue1" id="9z8-zH-7DY">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="Sh0-f6-WgO" detailTextLabel="cTN-sW-Bl6" style="IBUITableViewCellStyleValue1" id="9z8-zH-7DY">
                                         <rect key="frame" x="0.0" y="223" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9z8-zH-7DY" id="cg6-g2-4hw">
@@ -291,6 +293,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="datePicker" destination="h6T-MY-co6" id="QiB-9q-k38"/>
+                        <outlet property="datePickerCell" destination="gBV-Qi-L1A" id="9KV-sv-oEE"/>
                         <outlet property="doneBarButton" destination="Sq0-uQ-0Uw" id="DfO-RV-pJO"/>
                         <outlet property="dueDateLabel" destination="cTN-sW-Bl6" id="hEm-OG-3rs"/>
                         <outlet property="shouldRemindSwitch" destination="Na8-ar-iAc" id="1E6-m9-woL"/>
@@ -298,6 +302,31 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23s-GJ-bMG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="gBV-Qi-L1A">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="217"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gBV-Qi-L1A" id="zKk-Y8-a1l">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="h6T-MY-co6">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="491339614.00245798">
+                                    <!--2016-07-27 19:13:34 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="dateChanged:" destination="OyS-jC-JmN" eventType="valueChanged" id="Xob-Eq-ADF"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="h6T-MY-co6" firstAttribute="leading" secondItem="zKk-Y8-a1l" secondAttribute="leading" id="O68-uV-Oa8"/>
+                            <constraint firstAttribute="trailing" secondItem="h6T-MY-co6" secondAttribute="trailing" id="dw3-4T-Pd3"/>
+                            <constraint firstItem="h6T-MY-co6" firstAttribute="top" secondItem="zKk-Y8-a1l" secondAttribute="top" id="mN2-Ba-SuI"/>
+                            <constraint firstAttribute="bottom" secondItem="h6T-MY-co6" secondAttribute="bottom" id="oNO-7e-tTe"/>
+                        </constraints>
+                    </tableViewCellContentView>
+                </tableViewCell>
             </objects>
             <point key="canvasLocation" x="2583" y="206"/>
         </scene>
