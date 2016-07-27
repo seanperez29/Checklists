@@ -14,6 +14,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(dataModel.dataFilePath())
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -49,6 +50,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         } else {
             cell.detailTextLabel!.text = "\(count) Remaining"
         }
+        cell.imageView!.image = UIImage(named: checklist.iconName)
         return cell
     }
     
@@ -84,21 +86,15 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     func listDetailViewController(controller: ListDetailViewController, didFinishEditingChecklist checklist: Checklist) {
-        if let index = dataModel.lists.indexOf(checklist) {
-            let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-                cell.textLabel?.text = checklist.name
-            }
-        }
+        dataModel.sortChecklists()
+        tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func listDetailViewController(controller: ListDetailViewController, didFinishAddingChecklist checklist: Checklist) {
-        let newRowIndex = dataModel.lists.count
         dataModel.lists.append(checklist)
-        let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        dataModel.sortChecklists()
+        tableView.reloadData()
         dismissViewControllerAnimated(true, completion: nil)
     }
     
