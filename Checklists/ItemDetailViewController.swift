@@ -17,10 +17,14 @@ protocol ItemDetailViewControllerDelegate: class {
 
 class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var doneBarButton: UIBarButtonItem!
     weak var delegate: ItemDetailViewControllerDelegate?
     var itemToEdit: ChecklistItem?
+    var dueDate = NSDate()
+    
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var shouldRemindSwitch: UISwitch!
+    @IBOutlet weak var dueDateLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +33,22 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
             title = "Edit Item"
             textField.text = item.text
             doneBarButton.enabled = true
+            shouldRemindSwitch.on = item.shouldRemind
+            dueDate = item.dueDate
         }
+        updateDueDateLabel()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         textField.becomeFirstResponder()
+    }
+    
+    func updateDueDateLabel() {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .MediumStyle
+        formatter.timeStyle = .ShortStyle
+        dueDateLabel.text = formatter.stringFromDate(dueDate)
     }
     
     @IBAction func cancel() {
@@ -46,9 +60,14 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         if let item = itemToEdit {
             item.text = textField.text!
+            item.shouldRemind = shouldRemindSwitch.on
+            item.dueDate = dueDate
             delegate?.itemDetailViewController(self, didFinishEditingItem: item)
         } else {
-            let item = ChecklistItem(text: textField.text!, checked: false)
+            let item = ChecklistItem()
+            item.text = textField.text!
+            item.shouldRemind = shouldRemindSwitch.on
+            item.dueDate = dueDate
             delegate?.itemDetailViewController(self, didFinishAddingItem: item)
         }
     }
