@@ -33,8 +33,19 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     
     func configureTextForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
         let label = cell.viewWithTag(1000) as! UILabel
-        //label.text = item.text
-        label.text = "\(item.itemID): \(item.text)"
+        let detailText = cell.viewWithTag(1002) as! UILabel
+        label.text = item.text
+        detailText.text = updateDueDateLabel(item)
+    }
+    
+    func updateDueDateLabel(item: ChecklistItem) -> String? {
+        if item.shouldRemind && item.dueDate.compare(NSDate()) != .OrderedAscending {
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = .MediumStyle
+            formatter.timeStyle = .ShortStyle
+            return formatter.stringFromDate(item.dueDate)
+        }
+        return nil
     }
     
     func itemDetailViewControllerDidCancel(controller: ItemDetailViewController) {
@@ -42,10 +53,12 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     }
     
     func itemDetailViewController(controller: ItemDetailViewController, didFinishEditingItem item: ChecklistItem) {
+        checklist.sortChecklistItems()
         if let index = checklist.items.indexOf(item) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
                 configureTextForCell(cell, withChecklistItem: item)
+                tableView.reloadData()
             }
         }
         dismissViewControllerAnimated(true, completion: nil)
@@ -54,10 +67,12 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     func itemDetailViewController(controller: ItemDetailViewController, didFinishAddingItem item: ChecklistItem) {
         let newRowIndex = checklist.items.count
         checklist.items.append(item)
+        checklist.sortChecklistItems()
         
         let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
         let indexPaths = [indexPath]
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        tableView.reloadData()
         
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -78,6 +93,10 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
             configureCheckmarkForCell(cell, withChecklistItem: item)
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {

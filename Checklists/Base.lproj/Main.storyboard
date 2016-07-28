@@ -10,36 +10,53 @@
         <scene sceneID="wYk-zJ-jck">
             <objects>
                 <tableViewController id="OCC-Dn-On0" customClass="ChecklistViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="SMa-BQ-WHc">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" id="SMa-BQ-WHc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItem" id="goe-jU-3dw">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="goe-jU-3dw" id="b2h-DI-YrI">
-                                    <rect key="frame" x="0.0" y="0.0" width="533" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="533" height="55"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgW-kn-ea5">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgW-kn-ea5">
                                             <rect key="frame" x="38" y="11" width="495" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="√" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAP-aw-D5q">
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="√" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAP-aw-D5q">
                                             <rect key="frame" x="8" y="11" width="20" height="21"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P60-f5-gLg">
+                                            <rect key="frame" x="38" y="29" width="495" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="P60-f5-gLg" firstAttribute="top" secondItem="VgW-kn-ea5" secondAttribute="bottom" id="7Gp-Vz-ik9"/>
                                         <constraint firstAttribute="trailing" secondItem="VgW-kn-ea5" secondAttribute="trailing" id="Or7-1Q-CPX"/>
                                         <constraint firstItem="VgW-kn-ea5" firstAttribute="centerY" secondItem="b2h-DI-YrI" secondAttribute="centerY" id="WLY-Pu-W5h"/>
                                         <constraint firstItem="VgW-kn-ea5" firstAttribute="leading" secondItem="b2h-DI-YrI" secondAttribute="leadingMargin" constant="30" id="fdf-fc-ujv"/>
+                                        <constraint firstItem="HAP-aw-D5q" firstAttribute="centerY" secondItem="b2h-DI-YrI" secondAttribute="centerY" id="gwf-a0-Xjg"/>
+                                        <constraint firstAttribute="trailing" secondItem="P60-f5-gLg" secondAttribute="trailing" id="mkV-zE-kzQ"/>
+                                        <constraint firstItem="HAP-aw-D5q" firstAttribute="leading" secondItem="b2h-DI-YrI" secondAttribute="leadingMargin" id="nUB-VZ-cqp"/>
+                                        <constraint firstItem="P60-f5-gLg" firstAttribute="leading" secondItem="b2h-DI-YrI" secondAttribute="leading" constant="38" id="oeY-ti-1mf"/>
+                                        <constraint firstAttribute="bottom" secondItem="P60-f5-gLg" secondAttribute="bottom" constant="1" id="pzk-7y-jMz"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="7Gp-Vz-ik9"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="lGe-V2-nbp" kind="presentation" identifier="EditItem" trigger="accessoryAction" id="nUX-Lc-t0h"/>
@@ -232,6 +249,9 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Na8-ar-iAc">
                                                     <rect key="frame" x="536" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="shouldRemindToggled:" destination="OyS-jC-JmN" eventType="valueChanged" id="AiQ-5L-fDP"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLL-3Y-prb">
                                                     <rect key="frame" x="18" y="12" width="82" height="20"/>
